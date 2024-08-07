@@ -63,35 +63,78 @@ ReviewEventParticipantDao reviewEventParticipantDao = context.getBean(ReviewEven
         if (userType != null) {
         %>
         <li class="nav-item dropdown">
-          <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Dropdown</a>
+          <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Options</a>
           <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-            <li><a href="#" class="dropdown-item">Some action </a></li>
-            <li><a href="#" class="dropdown-item">Some other action</a></li>
-
-            <li class="dropdown-divider"></li>
 
             <!-- Level two dropdown-->
             <li class="dropdown-submenu dropdown-hover">
-              <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Hover for action</a>
-              <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
+              <a id="dropdownSubMenu1" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Facility</a>
+              <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
                 <li>
-                  <a tabindex="-1" href="#" class="dropdown-item">level 2</a>
+                  <%
+                  if (userType.equals("admin")) {
+                  %>
+                  <a tabindex="-1" href="addFacility" class="dropdown-item">Add New</a>
+                  <a tabindex="-1" href="viewAllBookedFacilities" class="dropdown-item">View Booked</a>
+                  <a tabindex="-1" href="viewFacilities" class="dropdown-item">View All</a>
+                  <%
+                  } else if (userType.equals("student") || userType.equals("staff")) {
+                  %>
+                  <a tabindex="-1" href="viewmybookedFacility?userId=<%=userId%>&role=<%=userType%>" class="dropdown-item">View Booked</a>
+                  <a tabindex="-1" href="viewAvailableFacility" class="dropdown-item">View All</a>
+                  <%
+                  }
+                  %>
                 </li>
-
-                <!-- Level three dropdown-->
-                <li class="dropdown-submenu">
-                  <a id="dropdownSubMenu3" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">level 2</a>
-                  <ul aria-labelledby="dropdownSubMenu3" class="dropdown-menu border-0 shadow">
-                    <li><a href="#" class="dropdown-item">3rd level</a></li>
-                    <li><a href="#" class="dropdown-item">3rd level</a></li>
-                  </ul>
-                </li>
-                <!-- End Level three -->
-
-                <li><a href="#" class="dropdown-item">level 2</a></li>
-                <li><a href="#" class="dropdown-item">level 2</a></li>
               </ul>
             </li>
+            <li class="dropdown-submenu dropdown-hover">
+              <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Equipment</a>
+              <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
+                <li>
+                  <%
+                  if (userType.equals("admin")) {
+                  %>
+                  <a tabindex="-1" href="addEquipment" class="dropdown-item">Add New</a>
+                  <a tabindex="-1" href="viewequipments" class="dropdown-item">View Booked</a>
+                  <a tabindex="-1" href="viewAllBookedEquipments" class="dropdown-item">View All</a>
+                  <%
+                  } else if (userType.equals("student") || userType.equals("staff")) {
+                  %>
+                  <a tabindex="-1" href="viewmybookedEquipments?userId=<%=userId%>&role=<%=userType%>" class="dropdown-item">View Booked</a>
+                  <a tabindex="-1" href="viewavailableequipments" class="dropdown-item">View All</a>
+                  <%
+                  }
+                  %>
+                </li>
+              </ul>
+            </li>
+            <li class="dropdown-submenu dropdown-hover">
+              <a id="dropdownSubMenu3" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Event</a>
+              <ul aria-labelledby="dropdownSubMenu3" class="dropdown-menu border-0 shadow">
+                <li>
+                  <a tabindex="-1" href="addEvent" class="dropdown-item">Add New</a>
+                  <a tabindex="-1" href="viewmyappliedevents?userId=<%=userId%>&role=<%=userType%>" class="dropdown-item">Applied Event</a>
+                  <a tabindex="-1" href="viewmyhostedevents?hostId=<%=userId%>&role=<%=userType%>" class="dropdown-item">View Joined</a>
+                  <a tabindex="-1" href="viewallevents" class="dropdown-item">View All</a>
+                </li>
+              </ul>
+            </li>
+            <%
+            if (userType.equals("admin")) {
+            %>
+            <li class="dropdown-submenu dropdown-hover">
+              <a id="dropdownSubMenu3" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">User</a>
+              <ul aria-labelledby="dropdownSubMenu3" class="dropdown-menu border-0 shadow">
+                <li>
+                  <a tabindex="-1" href="viewstudents" class="dropdown-item">View Students</a>
+                  <a tabindex="-1" href="viewstaffs" class="dropdown-item">View Staffs</a>
+                </li>
+              </ul>
+            </li>
+            <%
+            }
+            %>
             <!-- End Level two -->
             <li><a href="/logout" class="dropdown-item text-red">Logout</a></li>
           </ul>
