@@ -30,22 +30,22 @@ public class UserController {
 
 	@GetMapping("/student/login")
 	public String goToLoginPage() {
-		return "studentlogin";
+		return "login";
 	}
 
 	@GetMapping("/staff/login")
 	public String goToStaffLoginPage() {
-		return "stafflogin";
+		return "login";
 	}
 
 	@GetMapping("/student/register")
 	public String goToRegisterPage() {
-		return "studentregister";
+		return "register";
 	}
 
 	@GetMapping("/staff/register")
 	public String goToRegisterStaffPage() {
-		return "staffregister";
+		return "register";
 	}
 
 	@GetMapping("/contact")
@@ -66,29 +66,29 @@ public class UserController {
 	}
 
 	@PostMapping("/student/register")
-	public ModelAndView registerAdmin(@ModelAttribute Student user) {
+	public ModelAndView registerAdmin(HttpServletRequest request, @ModelAttribute Student user) {
 		ModelAndView mv = new ModelAndView();
 		user.setFacilityBan(FacilityBanStatus.NO.value());
 		if (this.studentDao.save(user) != null) {
+			HttpSession session = request.getSession();
+			session.setAttribute("active-user", user);
+			session.setAttribute("user-login", "student");
 			mv.addObject("status", user.getFirstname() + " Successfully Registered!");
-			mv.setViewName("studentlogin");
+			mv.setViewName("index");
 		}
 
 		return mv;
 	}
 
 	@PostMapping("/staff/register")
-	public ModelAndView registerStaff(@ModelAttribute Staff staff) {
+	public ModelAndView registerStaff(HttpServletRequest request, @ModelAttribute Staff staff) {
 		ModelAndView mv = new ModelAndView();
 		if (this.staffDao.save(staff) != null) {
+			HttpSession session = request.getSession();
+			session.setAttribute("active-user", staff);
+			session.setAttribute("user-login", "staff");
 			mv.addObject("status", staff.getFirstname() + " Successfully Registered!");
-			mv.setViewName("stafflogin");
-		}
-
-		else {
-			mv.addObject("status", staff.getFirstname() + " Failed to Registered User!");
-			mv.setViewName("staffregister");
-
+			mv.setViewName("login");
 		}
 
 		return mv;
@@ -106,12 +106,12 @@ public class UserController {
 			studentDao.save(user);
 
 			mv.addObject("status", "Password Changed");
-			mv.setViewName("userlogin");
+			mv.setViewName("login");
 		}
 
 		else {
 			mv.addObject("status", "No User found!");
-			mv.setViewName("userregister");
+			mv.setViewName("register");
 		}
 
 		return mv;
@@ -134,7 +134,7 @@ public class UserController {
 
 		else {
 			mv.addObject("status", "Failed to login!");
-			mv.setViewName("index");
+			mv.setViewName("login");
 		}
 
 		return mv;
@@ -157,7 +157,7 @@ public class UserController {
 
 		else {
 			mv.addObject("status", "Failed to login!");
-			mv.setViewName("index");
+			mv.setViewName("login");
 		}
 
 		return mv;

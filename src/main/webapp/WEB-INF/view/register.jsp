@@ -109,8 +109,12 @@
             </div>
           </div>
           <!-- /.col -->
-          <div class="col-4">
+          <div class="col-12">
             <button type="submit" class="btn btn-primary btn-block">Register</button>
+          </div>
+          <!-- /.col -->
+          <div class="col-12 mt-1">
+            <a href="/" class="btn btn-danger btn-block" >Cancel</a>
           </div>
           <!-- /.col -->
         </div>
