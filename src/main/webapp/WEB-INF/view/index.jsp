@@ -26,7 +26,7 @@
 			</div>
 			<div class="carousel-item">
 				<img class="d-block w-100" src="resources/images/carousal.jpg"
-					alt="Second slide">
+					alt="Second slideaaa">
 			</div>
 		</div>
 		<a class="carousel-control-prev" href="#carouselExampleIndicators"
