@@ -48,6 +48,11 @@ public class UserController {
 		return "staffregister";
 	}
 
+	@GetMapping("/contact")
+	public String goToContactPage() {
+		return "contact";
+	}
+
 	@GetMapping("/logout")
 	public ModelAndView logout(HttpSession session) {
 		ModelAndView mv = new ModelAndView();

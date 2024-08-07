@@ -15,7 +15,7 @@
             <div class="card">
                 <%@ include file="./components/message.jsp"%>
                 <div class="card-body px-5">
-                    <img src="resources/images/login logo.png" class="rounded mx-auto d-block" alt="img" height="90px" width="90px">
+                    <img src="resources/images/loginlogo.png" class="rounded mx-auto d-block" alt="img" height="90px" width="90px">
                     <h3 class="text-center my-3">Admin Login</h3>
             <form action="adminlogin" method="post">
                  <div class="form-group">
