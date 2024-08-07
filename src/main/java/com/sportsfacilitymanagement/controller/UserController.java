@@ -110,7 +110,7 @@ public class UserController {
 		}
 
 		else {
-			mv.addObject("status", "No User found!");
+			mv.addObject("error", "No User found!");
 			mv.setViewName("register");
 		}
 
@@ -133,7 +133,7 @@ public class UserController {
 		}
 
 		else {
-			mv.addObject("status", "Failed to login!");
+			mv.addObject("error", "Failed to login!");
 			mv.setViewName("login");
 		}
 
@@ -156,7 +156,7 @@ public class UserController {
 		}
 
 		else {
-			mv.addObject("status", "Failed to login!");
+			mv.addObject("error", "Failed to login!");
 			mv.setViewName("login");
 		}
 

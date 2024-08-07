@@ -70,7 +70,7 @@ public class AdminController {
 		}
 		
 		else {
-			mv.addObject("status","Failed to login as Admin!");
+			mv.addObject("error","Failed to login as Admin!");
 			mv.setViewName("login");
 		}
 		
