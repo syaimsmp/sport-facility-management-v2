@@ -7,12 +7,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import com.sportsfacilitymanagement.dao.AdminDao;
 import com.sportsfacilitymanagement.model.Admin;
 
 @Controller
+@RequestMapping("/admin")
 public class AdminController {
 	
 	@Autowired
@@ -28,19 +30,19 @@ public class AdminController {
 		return "index";
 	}
 	
-	@GetMapping("/adminlogin")
+	@GetMapping("/login")
 	public String goToAdminLoginPage() {
 		
 		return "adminlogin";
 	}
 	
-	@GetMapping("/adminregister")
+	@GetMapping("/register")
 	public String goToAdminRegisterPage() {
 		
 		return "adminregister";
 	}
 	
-	@PostMapping("/adminregister")
+	@PostMapping("/register")
 	public ModelAndView registerAdmin(@ModelAttribute Admin admin) {
 		ModelAndView mv = new ModelAndView();
 		if(this.adminDao.save(admin)!= null) {
@@ -48,16 +50,10 @@ public class AdminController {
 			mv.setViewName("adminlogin");
 		}
 		
-		else {
-			mv.addObject("status", admin.getFirstname()+" Failed to Registered as ADMIN");
-			mv.setViewName("adminregister");
-	
-		}
-		
 		return mv;
 	}
 	
-	@PostMapping("/adminlogin")
+	@PostMapping("/login")
 	public ModelAndView loginAdmin(HttpServletRequest request, @RequestParam("emailid") String emailId, @RequestParam("password") String password ) {
 		ModelAndView mv = new ModelAndView();
 		

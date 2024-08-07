@@ -28,22 +28,22 @@ public class UserController {
 	@Autowired
 	private StaffDao staffDao;
 
-	@GetMapping("/studentlogin")
+	@GetMapping("/student/login")
 	public String goToLoginPage() {
 		return "studentlogin";
 	}
 
-	@GetMapping("/stafflogin")
+	@GetMapping("/staff/login")
 	public String goToStaffLoginPage() {
 		return "stafflogin";
 	}
 
-	@GetMapping("/studentregister")
+	@GetMapping("/student/register")
 	public String goToRegisterPage() {
 		return "studentregister";
 	}
 
-	@GetMapping("/staffregister")
+	@GetMapping("/staff/register")
 	public String goToRegisterStaffPage() {
 		return "staffregister";
 	}
@@ -60,7 +60,7 @@ public class UserController {
 		return mv;
 	}
 
-	@PostMapping("/studentregister")
+	@PostMapping("/student/register")
 	public ModelAndView registerAdmin(@ModelAttribute Student user) {
 		ModelAndView mv = new ModelAndView();
 		user.setFacilityBan(FacilityBanStatus.NO.value());
@@ -69,16 +69,10 @@ public class UserController {
 			mv.setViewName("studentlogin");
 		}
 
-		else {
-			mv.addObject("status", user.getFirstname() + " Failed to Registered User!");
-			mv.setViewName("studentregister");
-
-		}
-
 		return mv;
 	}
 
-	@PostMapping("/staffregister")
+	@PostMapping("/staff/register")
 	public ModelAndView registerStaff(@ModelAttribute Staff staff) {
 		ModelAndView mv = new ModelAndView();
 		if (this.staffDao.save(staff) != null) {
@@ -118,7 +112,7 @@ public class UserController {
 		return mv;
 	}
 
-	@PostMapping("/studentlogin")
+	@PostMapping("/student/login")
 	public ModelAndView loginAdmin(HttpServletRequest request, @RequestParam("emailid") String emailId,
 			@RequestParam("password") String password) {
 		ModelAndView mv = new ModelAndView();
@@ -141,7 +135,7 @@ public class UserController {
 		return mv;
 	}
 
-	@PostMapping("/stafflogin")
+	@PostMapping("/staff/login")
 	public ModelAndView loginStaff(HttpServletRequest request, @RequestParam("emailid") String emailId,
 			@RequestParam("password") String password) {
 		ModelAndView mv = new ModelAndView();
