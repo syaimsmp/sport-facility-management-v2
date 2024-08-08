@@ -90,8 +90,8 @@
                       <h2 class="lead"><b>Syed Ibrahim</b></h2>
                       <p class="text-muted text-sm"><b>About: </b> Web Designer / UX / Graphic Artist / Coffee Lover </p>
                       <ul class="ml-4 mb-0 fa-ul text-muted">
-                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Address: Demo Street 123, Demo City 04312, NJ</li>
-                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone #: + 800 - 12 12 23 52</li>
+                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Address: MY</li>
+                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone #: + 60 - 12 12 23 52</li>
                       </ul>
                     </div>
                     <div class="col-5 text-center">
@@ -122,8 +122,8 @@
                       <h2 class="lead"><b>Najah Rizal</b></h2>
                       <p class="text-muted text-sm"><b>About: </b> Web Designer / UX / Graphic Artist / Coffee Lover </p>
                       <ul class="ml-4 mb-0 fa-ul text-muted">
-                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Address: Demo Street 123, Demo City 04312, NJ</li>
-                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone #: + 800 - 12 12 23 52</li>
+                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Address: MY</li>
+                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone #: + 60 - 12 12 23 52</li>
                       </ul>
                     </div>
                     <div class="col-5 text-center">
