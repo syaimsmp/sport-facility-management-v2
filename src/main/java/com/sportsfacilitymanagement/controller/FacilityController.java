@@ -299,7 +299,10 @@ public class FacilityController {
 			mv.addObject("error", "Failed to book status.");
 		}
 
-		mv.setViewName("index");
+		mv.addObject("facility", facility);
+		mv.addObject("role", role);
+		mv.addObject("userId", userId);
+		mv.setViewName("bookfacility");
 
 		return mv;
 	}

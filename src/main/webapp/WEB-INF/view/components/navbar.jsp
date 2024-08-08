@@ -96,8 +96,8 @@ ReviewEventParticipantDao reviewEventParticipantDao = context.getBean(ReviewEven
                   if (userType.equals("admin")) {
                   %>
                   <a tabindex="-1" href="/addEquipment" class="dropdown-item">Add New</a>
-                  <a tabindex="-1" href="/viewequipments" class="dropdown-item">View Booked</a>
-                  <a tabindex="-1" href="/viewAllBookedEquipments" class="dropdown-item">View All</a>
+                  <a tabindex="-1" href="/viewAllBookedEquipments" class="dropdown-item">View Booked</a>
+                  <a tabindex="-1" href="/viewequipments" class="dropdown-item">View  All</a>
                   <%
                   } else if (userType.equals("student") || userType.equals("staff")) {
                   %>

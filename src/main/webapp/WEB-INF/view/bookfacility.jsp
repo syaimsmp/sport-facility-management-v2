@@ -58,7 +58,7 @@
             <div class="col-12 ">
 				<%@ include file="./components/message.jsp"%>
 				<h3 class="text-center my-3">Book Facility</h3>
-				<form action="bookFacility">
+				<form action="/bookFacility">
 					<input type="hidden" name="facilityId"
 						value="<%=facility.getId()%>"> 
 					<input type="hidden" name="userId" value="<%=userId%>"> 
