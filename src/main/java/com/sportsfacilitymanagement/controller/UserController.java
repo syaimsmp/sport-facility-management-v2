@@ -196,9 +196,11 @@ public class UserController {
 		student.setFacilityBan(status);
 
 		Student savedStudent = this.studentDao.save(student);
+		List<Student> students = this.studentDao.findAll();
 
+		mv.addObject("students", students);
 		mv.addObject("status", "Student Facility Ban status updated successful!!!");
-		mv.setViewName("index");
+		mv.setViewName("viewstudents");
 
 		return mv;
 	}
