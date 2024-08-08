@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -105,7 +106,7 @@ public class FacilityController {
 		}
 
 		else {
-			mv.addObject("status", "Failed to add facility.");
+			mv.addObject("error", "Failed to add facility.");
 		}
 		mv.setViewName("index");
 
@@ -246,10 +247,11 @@ public class FacilityController {
 		return mv;
 	}
 
-	@GetMapping("/bookFacility")
-	public ModelAndView bookFacility(@RequestParam("facilityId") Integer facilityId,
-			@RequestParam("userId") Integer userId, @RequestParam("role") String role,
-			@RequestParam("date") String date) {
+	
+    @GetMapping("/bookFacility")
+    public ModelAndView bookFacility(@RequestParam("facilityId") Integer facilityId,
+            @RequestParam("userId") Integer userId, @RequestParam("role") String role,
+            @RequestParam("date") String date) {
 		ModelAndView mv = new ModelAndView();
 
 		String monthYear = Helper.getCurrentYearMonth(date);
@@ -262,7 +264,7 @@ public class FacilityController {
 
 			if (student.getFacilityBan().equals(FacilityBanStatus.YES.value())) {
 				mv.addObject("status", "You Banned to use any Facility!!!");
-				mv.setViewName("index");
+				mv.setViewName("viewallbookedfacilities");
 				return mv;
 			}
 
@@ -272,7 +274,7 @@ public class FacilityController {
 				.findByParticipantIdAndRoleAndDateContainingIgnoreCase(userId, role, monthYear);
 
 		if (thisMonthsBookings != null && thisMonthsBookings.size() >= 4) {
-			mv.addObject("status", "Can't book the facility more than 4 times in a month!!!");
+			mv.addObject("error", "Can't book the facility more than 4 times in a month!!!");
 			mv.setViewName("index");
 			return mv;
 		}
@@ -294,7 +296,7 @@ public class FacilityController {
 		}
 
 		else {
-			mv.addObject("status", "Failed to book status.");
+			mv.addObject("error", "Failed to book status.");
 		}
 
 		mv.setViewName("index");
