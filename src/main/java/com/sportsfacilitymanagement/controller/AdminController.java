@@ -33,13 +33,13 @@ public class AdminController {
 	@GetMapping("/login")
 	public String goToAdminLoginPage() {
 		
-		return "adminlogin";
+		return "login";
 	}
 	
 	@GetMapping("/register")
 	public String goToAdminRegisterPage() {
 		
-		return "adminregister";
+		return "/register";
 	}
 	
 	@PostMapping("/register")
@@ -47,7 +47,7 @@ public class AdminController {
 		ModelAndView mv = new ModelAndView();
 		if(this.adminDao.save(admin)!= null) {
 			mv.addObject("status", admin.getFirstname()+" Successfully Registered as ADMIN");
-			mv.setViewName("adminlogin");
+			mv.setViewName("login");
 		}
 		
 		return mv;
@@ -65,11 +65,13 @@ public class AdminController {
 			session.setAttribute("user-login","admin");
 			mv.addObject("status", admin.getFirstname()+" Successfully Logged in as ADMIN!");
 			mv.setViewName("index");
+			// return "redirect:/";
+
 		}
 		
 		else {
-			mv.addObject("status","Failed to login as Admin!");
-			mv.setViewName("index");
+			mv.addObject("error","Failed to login as Admin!");
+			mv.setViewName("login");
 		}
 		
 		return mv;
