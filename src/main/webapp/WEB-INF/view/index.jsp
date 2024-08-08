@@ -15,35 +15,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <body>
 	<%@ include file="./components/navbar.jsp"%>
 	<%@ include file="./components/message.jsp"%>
-	<div id="carouselExampleIndicators" class="carousel slide"
-		data-ride="carousel">
-		<ol class="carousel-indicators">
-			<li data-target="#carouselExampleIndicators" data-slide-to="0"
-				class="active"></li>
-			<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-			<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-		</ol>
-		<div class="carousel-inner" style="width: 100%">
-			<div class="carousel-item active">
-				<img class="d-block w-100" src="resources/images/carousal.jpg"
-					alt="First slide">
-			</div>
-			<div class="carousel-item">
-				<img class="d-block w-100" src="resources/images/carousal.jpg"
-					alt="Second slideaaa">
-			</div>
-		</div>
-		<a class="carousel-control-prev" href="#carouselExampleIndicators"
-			role="button" data-slide="prev"> <span
-			class="carousel-control-prev-icon" aria-hidden="true"></span> <span
-			class="sr-only">Previous</span>
-		</a> <a class="carousel-control-next" href="#carouselExampleIndicators"
-			role="button" data-slide="next"> <span
-			class="carousel-control-next-icon" aria-hidden="true"></span> <span
-			class="sr-only">Next</span>
-		</a>
-	</div>
-	
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -53,11 +24,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="/dist/css/adminlte.min.css">
 </head>
 <body class="hold-transition sidebar-collapse layout-top-nav">
-<div class="wrapper">
-
-    <%@ include file="./components/navbar.jsp"%>
-    <%@ include file="./components/message.jsp"%>
-
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Main content -->
