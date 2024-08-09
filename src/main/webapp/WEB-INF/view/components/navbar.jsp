@@ -44,7 +44,6 @@ ReviewFacilityDao reviewFacilityDao = context.getBean(ReviewFacilityDao.class);
 ReviewEventParticipantDao reviewEventParticipantDao = context.getBean(ReviewEventParticipantDao.class);
 %>
 
-
 <!-- Navbar -->
   <nav class="main-header navbar navbar-expand-md navbar-light navbar-white" style="font-family:serif;">
     <div class="container">
@@ -113,7 +112,7 @@ ReviewEventParticipantDao reviewEventParticipantDao = context.getBean(ReviewEven
               <a id="dropdownSubMenu3" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Event</a>
               <ul aria-labelledby="dropdownSubMenu3" class="dropdown-menu border-0 shadow">
                 <li>
-                  <a tabindex="-1" href="/addEvent" class="dropdown-item">Add New</a>
+                  <!-- <a tabindex="-1" href="/addEvent" class="dropdown-item">Add New</a> -->
                   <a tabindex="-1" href="/viewmyappliedevents?userId=<%=userId%>&role=<%=userType%>" class="dropdown-item">Applied Event</a>
                   <a tabindex="-1" href="/viewmyhostedevents?hostId=<%=userId%>&role=<%=userType%>" class="dropdown-item">View Joined</a>
                   <a tabindex="-1" href="/viewallevents" class="dropdown-item">View All</a>
