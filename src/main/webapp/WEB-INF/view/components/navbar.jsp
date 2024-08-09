@@ -28,7 +28,7 @@ else if (userType != null && userType.equals("staff")) {
 }
 
 Integer userId = student == null && staff == null ? 0 : student != null ? student.getId() : staff.getId();
-if(userId == 0 && userType.equals("admin")){
+if(userType!= null && userId == 0 && userType.equals("admin")){
   userId = admin.getId();
 }
 
@@ -65,7 +65,7 @@ ReviewEventParticipantDao reviewEventParticipantDao = context.getBean(ReviewEven
         if (userType != null) {
         %>
         <li class="nav-item dropdown">
-          <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Options <%= userId %></a>
+          <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Options</a>
           <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
 
             <!-- Level two dropdown-->
@@ -120,7 +120,7 @@ ReviewEventParticipantDao reviewEventParticipantDao = context.getBean(ReviewEven
                   %>
                   <a tabindex="-1" href="/addEvent" class="dropdown-item">Add New</a>
                   <a tabindex="-1" href="/viewmyappliedevents?userId=<%=userId%>&role=<%=userType%>" class="dropdown-item">Applied Event</a>
-                  <a tabindex="-1" href="/viewmyhostedevents?hostId=<%=userId%>&role=<%=userType%>" class="dropdown-item">View Joined</a>
+                  <a tabindex="-1" href="/viewmyhostedevents?hostId=<%=userId%>&role=<%=userType%>" class="dropdown-item">Hosted Event</a>
                   <%
                   }
                   %>

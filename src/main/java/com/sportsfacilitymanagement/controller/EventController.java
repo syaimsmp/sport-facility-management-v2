@@ -65,6 +65,10 @@ public class EventController {
 
 		if (this.eventDao.save(event) != null) {
 			mv.addObject("status", "Event Added Successful!!");
+			List<Event> events = this.eventDao.findAll();
+			mv.addObject("events", events);
+			mv.setViewName("viewallevents");
+
 			mv.setViewName("index");
 		}
 
@@ -195,7 +199,10 @@ public class EventController {
 		this.bookedEventDao.save(booking);
 
 		mv.addObject("status", "Event Booking Status Updated Successful!!!");
-		mv.setViewName("index");
+		List<Event> events = this.eventDao.findAll();
+		mv.addObject("events", events);
+		mv.setViewName("viewallevents");
+
 		return mv;
 	}
 
@@ -287,7 +294,9 @@ public class EventController {
 			mv.addObject("status", "Failed to add review");
 		}
 
-		mv.setViewName("index");
+		List<Event> events = this.eventDao.findAll();
+		mv.addObject("events", events);
+		mv.setViewName("viewallevents");
 
 		return mv;
 	}
