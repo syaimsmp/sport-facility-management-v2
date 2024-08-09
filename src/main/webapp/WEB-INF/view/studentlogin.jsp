@@ -17,7 +17,7 @@
                 <div class="card-body px-5">
                     <img src="resources/images/login logo.png" class="rounded mx-auto d-block" alt="img" height="90px" width="90px">
                     <h3 class="text-center my-3">Student Login</h3>
-            <form action="studentlogin" method="post">
+            <form action="/student/login" method="post">
                  <div class="form-group">
                      <label for="email">User name</label>
                      <input type="text" class="form-control" id="username" aria-describedby="emailHelp" name="emailid" placeholder="Enter email id.." required>
