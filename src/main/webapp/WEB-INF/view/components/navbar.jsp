@@ -28,6 +28,9 @@ else if (userType != null && userType.equals("staff")) {
 }
 
 Integer userId = student == null && staff == null ? 0 : student != null ? student.getId() : staff.getId();
+if(userId == 0 && userType.equals("admin")){
+  userId = admin.getId();
+}
 
 ApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
 StudentDao studentDao = context.getBean(StudentDao.class);
@@ -62,7 +65,7 @@ ReviewEventParticipantDao reviewEventParticipantDao = context.getBean(ReviewEven
         if (userType != null) {
         %>
         <li class="nav-item dropdown">
-          <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Options</a>
+          <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Options <%= userId %></a>
           <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
 
             <!-- Level two dropdown-->
@@ -112,9 +115,15 @@ ReviewEventParticipantDao reviewEventParticipantDao = context.getBean(ReviewEven
               <a id="dropdownSubMenu3" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Event</a>
               <ul aria-labelledby="dropdownSubMenu3" class="dropdown-menu border-0 shadow">
                 <li>
-                  <!-- <a tabindex="-1" href="/addEvent" class="dropdown-item">Add New</a> -->
+                  <%
+                  if (userType.equals("student") || userType.equals("staff")) {
+                  %>
+                  <a tabindex="-1" href="/addEvent" class="dropdown-item">Add New</a>
                   <a tabindex="-1" href="/viewmyappliedevents?userId=<%=userId%>&role=<%=userType%>" class="dropdown-item">Applied Event</a>
                   <a tabindex="-1" href="/viewmyhostedevents?hostId=<%=userId%>&role=<%=userType%>" class="dropdown-item">View Joined</a>
+                  <%
+                  }
+                  %>
                   <a tabindex="-1" href="/viewallevents" class="dropdown-item">View All</a>
                 </li>
               </ul>
