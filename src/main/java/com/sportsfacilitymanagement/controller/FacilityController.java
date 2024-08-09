@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -105,9 +106,12 @@ public class FacilityController {
 		}
 
 		else {
-			mv.addObject("status", "Failed to add facility.");
+			mv.addObject("error", "Failed to add facility.");
 		}
-		mv.setViewName("index");
+		List<Facility> facilities = this.facilityDao.findAll();
+
+		mv.addObject("facilities", facilities);
+		mv.setViewName("viewfacilities");
 
 		return mv;
 	}
@@ -167,33 +171,40 @@ public class FacilityController {
 		String name = request.getParameter("name");
 		String description = request.getParameter("description");
 		String location = request.getParameter("location");
-		Part part = request.getPart("image");
-
-		String fileName = part.getSubmittedFileName();
-
-		String uploadPath = sportsImageFolderPath + fileName;
-
-		try {
-			FileOutputStream fos = new FileOutputStream(uploadPath);
-			InputStream is = part.getInputStream();
-
-			byte[] data = new byte[is.available()];
-			is.read(data);
-			fos.write(data);
-			fos.close();
-		}
-
-		catch (Exception e) {
-			e.printStackTrace();
-		}
 
 		Facility facility = this.facilityDao.findById(facilityId).get();
 
 		facility.setName(name);
 		facility.setDescription(description);
 		facility.setLocation(location);
-		facility.setImagePath(fileName);
 		facility.setStatus(FacilityOrEquipmentStatus.AVAILABLE.value());
+
+		Part part = request.getPart("image");
+		if(part != null && part.getSize() > 0){
+			System.out.println(part.getSubmittedFileName());			
+			String fileName = part.getSubmittedFileName();
+
+			if (fileName != null && !fileName.isEmpty()) {
+				String uploadPath = sportsImageFolderPath + fileName;
+	
+				try {
+					FileOutputStream fos = new FileOutputStream(uploadPath);
+					InputStream is = part.getInputStream();
+		
+					byte[] data = new byte[is.available()];
+					is.read(data);
+					fos.write(data);
+					fos.close();
+				}
+		
+				catch (Exception e) {
+					e.printStackTrace();
+				}	
+	
+				facility.setImagePath(fileName);
+
+			}
+		}
 
 		Facility savedFacility = facilityDao.save(facility);
 
@@ -204,7 +215,11 @@ public class FacilityController {
 		else {
 			mv.addObject("status", "Failed to update facility.");
 		}
-		mv.setViewName("index");
+		List<Facility> facilities = this.facilityDao.findAll();
+
+		mv.addObject("facilities", facilities);
+		mv.setViewName("viewfacilities");
+
 
 		return mv;
 	}
@@ -228,7 +243,10 @@ public class FacilityController {
 		else {
 			mv.addObject("status", "Failed to update facility status.");
 		}
-		mv.setViewName("index");
+		List<Facility> facilities = this.facilityDao.findAll();
+
+		mv.addObject("facilities", facilities);
+		mv.setViewName("viewfacilities");
 
 		return mv;
 	}
@@ -246,10 +264,11 @@ public class FacilityController {
 		return mv;
 	}
 
-	@GetMapping("/bookFacility")
-	public ModelAndView bookFacility(@RequestParam("facilityId") Integer facilityId,
-			@RequestParam("userId") Integer userId, @RequestParam("role") String role,
-			@RequestParam("date") String date) {
+	
+    @GetMapping("/bookFacility")
+    public ModelAndView bookFacility(@RequestParam("facilityId") Integer facilityId,
+            @RequestParam("userId") Integer userId, @RequestParam("role") String role,
+            @RequestParam("date") String date) {
 		ModelAndView mv = new ModelAndView();
 
 		String monthYear = Helper.getCurrentYearMonth(date);
@@ -262,7 +281,11 @@ public class FacilityController {
 
 			if (student.getFacilityBan().equals(FacilityBanStatus.YES.value())) {
 				mv.addObject("status", "You Banned to use any Facility!!!");
-				mv.setViewName("index");
+					Facility facility = this.facilityDao.findById(facilityId).get();
+					mv.addObject("facility", facility);
+					mv.addObject("role", role);
+					mv.addObject("userId", userId);
+					mv.setViewName("bookfacility");
 				return mv;
 			}
 
@@ -272,8 +295,12 @@ public class FacilityController {
 				.findByParticipantIdAndRoleAndDateContainingIgnoreCase(userId, role, monthYear);
 
 		if (thisMonthsBookings != null && thisMonthsBookings.size() >= 4) {
-			mv.addObject("status", "Can't book the facility more than 4 times in a month!!!");
-			mv.setViewName("index");
+			mv.addObject("error", "Can't book the facility more than 4 times in a month!!!");
+			Facility facility = this.facilityDao.findById(facilityId).get();
+					mv.addObject("facility", facility);
+					mv.addObject("role", role);
+					mv.addObject("userId", userId);
+					mv.setViewName("bookfacility");
 			return mv;
 		}
 
@@ -294,10 +321,13 @@ public class FacilityController {
 		}
 
 		else {
-			mv.addObject("status", "Failed to book status.");
+			mv.addObject("error", "Failed to book status.");
 		}
 
-		mv.setViewName("index");
+		mv.addObject("facility", facility);
+		mv.addObject("role", role);
+		mv.addObject("userId", userId);
+		mv.setViewName("bookfacility");
 
 		return mv;
 	}
@@ -332,6 +362,8 @@ public class FacilityController {
 		ReviewFacility savedReview = this.reviewFacilityDao.save(reviewFacility);
 
 		if (savedReview != null) {
+			List<Facility> facilities = this.facilityDao.findByStatus(FacilityOrEquipmentStatus.AVAILABLE.value());
+			mv.addObject("facilities", facilities);
 			mv.addObject("status", "Review added successful!!!");
 		}
 
@@ -339,7 +371,12 @@ public class FacilityController {
 			mv.addObject("status", "Failed to add review");
 		}
 
-		mv.setViewName("index");
+
+		Facility facility = this.facilityDao.findById(facilityId).get();
+		mv.addObject("facility", facility);
+		mv.addObject("role", role);
+		mv.addObject("userId", userId);
+		mv.setViewName("viewfacilityreviews");
 
 		return mv;
 	}

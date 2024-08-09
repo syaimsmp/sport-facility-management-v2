@@ -65,6 +65,10 @@ public class EventController {
 
 		if (this.eventDao.save(event) != null) {
 			mv.addObject("status", "Event Added Successful!!");
+			List<Event> events = this.eventDao.findAll();
+			mv.addObject("events", events);
+			mv.setViewName("viewallevents");
+
 			mv.setViewName("index");
 		}
 
@@ -103,12 +107,14 @@ public class EventController {
 	public ModelAndView applyForEvent(@RequestParam("eventId") Integer eventId, @RequestParam("userId") Integer userId,
 			@RequestParam("role") String role) {
 		ModelAndView mv = new ModelAndView();
+		List<Event> events = this.eventDao.findAll();
 
 		Event checkEvent = this.eventDao.findByIdAndHostIdAndRole(eventId, userId, role);
 
 		if (checkEvent != null) {
 			mv.addObject("status", "Your are host of this Event, Can't apply your own event!!!");
-			mv.setViewName("index");
+			mv.addObject("events", events);
+			mv.setViewName("viewallevents");
 			return mv;
 		}
 
@@ -116,8 +122,9 @@ public class EventController {
 
 		if (role.equals("staff")) {
 			if (event.getOpenToPublic().equals(OpenForPublicStatus.NO.value())) {
-				mv.addObject("status", "Staff can't apply for this Event!!!");
-				mv.setViewName("index");
+				mv.addObject("error", "Staff can't apply for this Event!!!");
+				mv.addObject("events", events);
+				mv.setViewName("viewallevents");
 				return mv;
 			}
 		}
@@ -125,8 +132,9 @@ public class EventController {
 		BookedEvent checkBooking = this.bookedEventDao.findByParticipantIdAndRoleAndEventId(userId, role, eventId);
 
 		if (checkBooking != null) {
-			mv.addObject("status", "You have already applied for this Event");
-			mv.setViewName("index");
+			mv.addObject("error", "You have already applied for this Event");
+			mv.addObject("events", events);
+			mv.setViewName("viewallevents");
 			return mv;
 		}
 
@@ -136,7 +144,8 @@ public class EventController {
 		if (!CollectionUtils.isEmpty(allApprovedBooking)) {
 			if (allApprovedBooking.size() >= event.getMaxParticipant()) {
 				mv.addObject("status", "Can't Apply for this Event, Slot not available!!!");
-				mv.setViewName("index");
+				mv.addObject("events", events);
+				mv.setViewName("viewallevents");
 				return mv;
 			}
 		}
@@ -152,7 +161,8 @@ public class EventController {
 		this.bookedEventDao.save(bookEvent);
 
 		mv.addObject("status", "Successfully Applied for the Event!!!");
-		mv.setViewName("index");
+		mv.addObject("events", events);
+		mv.setViewName("viewallevents");
 		return mv;
 	}
 
@@ -189,7 +199,10 @@ public class EventController {
 		this.bookedEventDao.save(booking);
 
 		mv.addObject("status", "Event Booking Status Updated Successful!!!");
-		mv.setViewName("index");
+		List<Event> events = this.eventDao.findAll();
+		mv.addObject("events", events);
+		mv.setViewName("viewallevents");
+
 		return mv;
 	}
 
@@ -281,7 +294,9 @@ public class EventController {
 			mv.addObject("status", "Failed to add review");
 		}
 
-		mv.setViewName("index");
+		List<Event> events = this.eventDao.findAll();
+		mv.addObject("events", events);
+		mv.setViewName("viewallevents");
 
 		return mv;
 	}

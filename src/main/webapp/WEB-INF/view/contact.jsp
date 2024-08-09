@@ -1,7 +1,3 @@
-<%@page
-	import="com.sportsfacilitymanagement.utility.Constants.FacilityBanStatus"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,12 +28,12 @@
       <div class="container">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>View Event Participant Reviews</h1>
+            <h1>Contacts</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">View Event Participant Reviews</li>
+              <li class="breadcrumb-item active">Contacts</li>
             </ol>
           </div>
         </div>
@@ -47,48 +43,16 @@
     <!-- Main content -->
     <section class="content">
 
-      <div class="container mt-2">
-        
       <!-- Default box -->
       <div class="card card-solid">
         <div class="card-body">
           <div class="row">
-            <div class="col-12 d-flex align-items-stretch flex-column">
-				<div class="table-responsive">
-					<%
-					List<ReviewEventParticipant> reviews = (List<ReviewEventParticipant>) request.getAttribute("reviews");
-					%>
-					<table class="table">
-						<thead class="custom-bg text-color">
-							<tr>
-								<th scope="col">Review</th>
-								<th scope="col">Added Time</th>
-							</tr>
-						</thead>
-		
-						<%
-						if (reviews != null) {
-							for (ReviewEventParticipant review : reviews) {
-						%>
-						<tbody>
-							<tr class="text-center">
-								<td class="mid-align"><%=review.getReview()%></td>
-								<td class="mid-align"><%=Helper.millisToDateTime(review.getAddedTime())%></td>
-							</tr>
-						</tbody>
-						<%
-						}
-						}
-						%>
-					</table>
-				</div>
-            </div>
+            <%@ include file="./components/about_us.jsp" %>
           </div>
         </div>
         <!-- /.card-body -->
       </div>
       <!-- /.card -->
-      </div>
 
     </section>
     <!-- /.content -->

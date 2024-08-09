@@ -17,7 +17,7 @@ public class Staff {
 	@Column(name = "FirstName")
 	private String firstname;
 
-	@Column(name = "Last Name")
+	@Column(name = "LastName")
 	private String lastname;
 
 	@Column(name = "EmailId")
