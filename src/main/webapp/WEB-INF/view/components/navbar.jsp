@@ -145,7 +145,7 @@ ReviewEventParticipantDao reviewEventParticipantDao = context.getBean(ReviewEven
             <li class="nav-item dropdown">
               <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Login</a>
               <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-                <li><a href="/admin/login" class="dropdown-item"></a></li>
+                <li><a href="/admin/login" class="dropdown-item">Admin</a></li>
                 <li><a href="/staff/login" class="dropdown-item">Staff</a></li>
                 <li><a href="/student/login" class="dropdown-item">Student </a></li>  
               </ul>

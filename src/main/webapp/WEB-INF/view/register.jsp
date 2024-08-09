@@ -1,4 +1,50 @@
 
+<%@ page import="com.sportsfacilitymanagement.model.*"%>
+<%@ page import="com.sportsfacilitymanagement.utility.*"%>
+<%@ page import="com.sportsfacilitymanagement.dao.*"%>
+<%@ page import="org.springframework.context.ApplicationContext"%>
+<%@ page
+    import="org.springframework.web.context.support.WebApplicationContextUtils"%>
+<%@ page import="java.sql.*"%>
+<%@ page import="java.util.*"%>
+
+
+<%
+String userType = (String) session.getAttribute("user-login");
+Admin admin = null;
+Student student = null;
+Staff staff = null;
+
+if (userType != null && userType.equals("admin")) {
+    admin = (Admin) session.getAttribute("active-user");
+}
+
+else if (userType != null && userType.equals("student")) {
+    student = (Student) session.getAttribute("active-user");
+}
+
+else if (userType != null && userType.equals("staff")) {
+    staff = (Staff) session.getAttribute("active-user");
+}
+
+Integer userId = student == null && staff == null ? 0 : student != null ? student.getId() : staff.getId();
+
+ApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
+StudentDao studentDao = context.getBean(StudentDao.class);
+StaffDao staffDao = context.getBean(StaffDao.class);
+BookedEquipmentDao bookedEquipmentDao = context.getBean(BookedEquipmentDao.class);
+EventDao eventDao = context.getBean(EventDao.class);
+BookedEventDao bookedEventDao = context.getBean(BookedEventDao.class);
+FacilityDao facilityDao = context.getBean(FacilityDao.class);
+EquipmentDao equipmentDao = context.getBean(EquipmentDao.class);
+BookedFacilityDao bookedFacilityDao = context.getBean(BookedFacilityDao.class);
+ReviewEquipmentDao reviewEquipmentDao = context.getBean(ReviewEquipmentDao.class);
+ReviewEventDao reviewEventDao = context.getBean(ReviewEventDao.class);
+ReviewFacilityDao reviewFacilityDao = context.getBean(ReviewFacilityDao.class);
+ReviewEventParticipantDao reviewEventParticipantDao = context.getBean(ReviewEventParticipantDao.class);
+%>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

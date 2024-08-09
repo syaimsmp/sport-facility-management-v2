@@ -23,9 +23,10 @@
 
 <script defer>
     $(document).ready(function(){
-      let allowedUrls = ['/', 'admin/login', 'staff/login', 'student/login', 'admin/register', 'staff/register', 'student/register'];
+      let allowedUrls = ['/', '/admin/login', '/staff/login', '/student/login', '/admin/register', '/staff/register', '/student/register'];
       let currentUrl = '<%= request.getAttribute("javax.servlet.forward.request_uri") %>';
-      if(!allowedUrls.includes(currentUrl)){
+      if(!allowedUrls.includes(currentUrl) && "<%= userType %>" == "null"){
+        alert("You were not logged in!");
         window.location.replace('/');
       }
     });
