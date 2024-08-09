@@ -28,7 +28,7 @@ else if (userType != null && userType.equals("staff")) {
 }
 
 Integer userId = student == null && staff == null ? 0 : student != null ? student.getId() : staff.getId();
-if(userType!= null && userId == 0 && userType.equals("admin")){
+if(admin!= null && userType!= null && userId == 0 && userType.equals("admin")){
   userId = admin.getId();
 }
 

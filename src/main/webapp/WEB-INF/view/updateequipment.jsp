@@ -79,8 +79,13 @@
 					</div>
 
 					<div class="form-group">
-						<label>Select Category</label> <select name="category"
-							class="form-control" required>
+						<label>Select Category</label> 
+            <select 
+              id="category" 
+              name="category"
+							class="form-control"
+               required
+            >
 							<option value="">Category</option>
 
 							<option value="Ball">Ball</option>
@@ -89,9 +94,19 @@
 						</select>
 					</div>
 
+          <div class="d-flex justify-content-center mb-3">
+            <div id="preview-box" style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; width: 200px; height: 200px;">
+                <img 
+                  id="preview-image" 
+                  src="resources/sportsimage/<%=equipment.getImagePath()%>" 
+                  alt="Image Preview" 
+                  style="width: 100%; height: 100%; object-fit: contain;">
+            </div>
+          </div>
+
 					<div class="form-group">
-						<label>Select Equipment Pic</label><br> <input type="file"
-							class="form-control" name="image" required>
+						<label>Select Equipment Pic</label><br> 
+            <input type="file" class="form-control" name="image">
 					</div>
 
 					<div class="text-center my-2">
@@ -132,5 +147,11 @@
 <script src="dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
+
+<script>
+  $(document).ready(function(){
+    $('#category').val('<%= equipment.getCategory() %>')
+  });
+</script>
 </body>
 </html>

@@ -137,33 +137,42 @@ public class EquipmentController {
 		String name = request.getParameter("name");
 		Integer totalQuantity = Integer.parseInt(request.getParameter("totalQuantity"));
 		String category = request.getParameter("category");
-		Part part = request.getPart("image");
-
-		String fileName = part.getSubmittedFileName();
-
-		String uploadPath = sportsImageFolderPath + fileName;
-
-		try {
-			FileOutputStream fos = new FileOutputStream(uploadPath);
-			InputStream is = part.getInputStream();
-
-			byte[] data = new byte[is.available()];
-			is.read(data);
-			fos.write(data);
-			fos.close();
-		}
-
-		catch (Exception e) {
-			e.printStackTrace();
-		}
 
 		Equipment equipment = this.equipmentDao.findById(equipmentId).get();
 
 		equipment.setName(name);
 		equipment.setCategory(category);
 		equipment.setTotalQuantity(totalQuantity);
-		equipment.setImagePath(fileName);
 		equipment.setStatus(FacilityOrEquipmentStatus.AVAILABLE.value());
+
+		Part part = request.getPart("image");
+		if(part != null && part.getSize() > 0){
+			System.out.println(part.getSubmittedFileName());			
+			String fileName = part.getSubmittedFileName();
+
+			if (fileName != null && !fileName.isEmpty()) {
+				String uploadPath = sportsImageFolderPath + fileName;
+	
+				try {
+					FileOutputStream fos = new FileOutputStream(uploadPath);
+					InputStream is = part.getInputStream();
+		
+					byte[] data = new byte[is.available()];
+					is.read(data);
+					fos.write(data);
+					fos.close();
+				}
+		
+				catch (Exception e) {
+					System.out.println("ROSAK!!!");
+					e.printStackTrace();
+				}	
+	
+				equipment.setImagePath(fileName);
+
+			}
+		}
+
 
 		Equipment savedEquipment = equipmentDao.save(equipment);
 
@@ -174,7 +183,11 @@ public class EquipmentController {
 		else {
 			mv.addObject("status", "Failed to update equipment.");
 		}
-		mv.setViewName("index");
+
+		List<Equipment> equipments = this.equipmentDao.findAll();
+
+		mv.addObject("equipments", equipments);
+		mv.setViewName("viewequipments");
 
 		return mv;
 

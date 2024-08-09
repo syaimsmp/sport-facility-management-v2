@@ -60,7 +60,7 @@
 					%>
 					<table class="table">
 						<thead class="custom-bg text-color">
-							<tr>
+							<tr class="text-center">
 								<th scope="col">First Name</th>
 								<th scope="col">Last Name</th>
 								<th scope="col">Mobile No</th>
