@@ -108,7 +108,10 @@ public class FacilityController {
 		else {
 			mv.addObject("error", "Failed to add facility.");
 		}
-		mv.setViewName("index");
+		List<Facility> facilities = this.facilityDao.findAll();
+
+		mv.addObject("facilities", facilities);
+		mv.setViewName("viewfacilities");
 
 		return mv;
 	}
@@ -168,33 +171,40 @@ public class FacilityController {
 		String name = request.getParameter("name");
 		String description = request.getParameter("description");
 		String location = request.getParameter("location");
-		Part part = request.getPart("image");
-
-		String fileName = part.getSubmittedFileName();
-
-		String uploadPath = sportsImageFolderPath + fileName;
-
-		try {
-			FileOutputStream fos = new FileOutputStream(uploadPath);
-			InputStream is = part.getInputStream();
-
-			byte[] data = new byte[is.available()];
-			is.read(data);
-			fos.write(data);
-			fos.close();
-		}
-
-		catch (Exception e) {
-			e.printStackTrace();
-		}
 
 		Facility facility = this.facilityDao.findById(facilityId).get();
 
 		facility.setName(name);
 		facility.setDescription(description);
 		facility.setLocation(location);
-		facility.setImagePath(fileName);
 		facility.setStatus(FacilityOrEquipmentStatus.AVAILABLE.value());
+
+		Part part = request.getPart("image");
+		if(part != null && part.getSize() > 0){
+			System.out.println(part.getSubmittedFileName());			
+			String fileName = part.getSubmittedFileName();
+
+			if (fileName != null && !fileName.isEmpty()) {
+				String uploadPath = sportsImageFolderPath + fileName;
+	
+				try {
+					FileOutputStream fos = new FileOutputStream(uploadPath);
+					InputStream is = part.getInputStream();
+		
+					byte[] data = new byte[is.available()];
+					is.read(data);
+					fos.write(data);
+					fos.close();
+				}
+		
+				catch (Exception e) {
+					e.printStackTrace();
+				}	
+	
+				facility.setImagePath(fileName);
+
+			}
+		}
 
 		Facility savedFacility = facilityDao.save(facility);
 
@@ -205,7 +215,11 @@ public class FacilityController {
 		else {
 			mv.addObject("status", "Failed to update facility.");
 		}
-		mv.setViewName("index");
+		List<Facility> facilities = this.facilityDao.findAll();
+
+		mv.addObject("facilities", facilities);
+		mv.setViewName("viewfacilities");
+
 
 		return mv;
 	}
@@ -229,7 +243,10 @@ public class FacilityController {
 		else {
 			mv.addObject("status", "Failed to update facility status.");
 		}
-		mv.setViewName("index");
+		List<Facility> facilities = this.facilityDao.findAll();
+
+		mv.addObject("facilities", facilities);
+		mv.setViewName("viewfacilities");
 
 		return mv;
 	}

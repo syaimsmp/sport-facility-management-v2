@@ -88,12 +88,21 @@
 							value="<%=facility.getLocation()%>" required>
 					</div>
 
+          <div class="d-flex justify-content-center mb-3">
+            <div id="preview-box" style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; width: 200px; height: 200px;">
+                <img 
+                  id="preview-image" 
+                  src="resources/sportsimage/<%=facility.getImagePath()%>" 
+                  alt="Image Preview" 
+                  style="width: 100%; height: 100%; object-fit: contain;">
+            </div>
+          </div>
 
 					<div class="form-group">
 						<label>Select Facility Pic</label><br> 
 						<input type="file"
 							id="file-name"
-							class="form-control" name="image" onload="displayFileName" required>
+							class="form-control" name="image" onload="displayFileName">
 					</div>
 
 					<div class=" text-center">

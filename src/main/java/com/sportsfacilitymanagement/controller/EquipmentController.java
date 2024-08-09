@@ -164,7 +164,6 @@ public class EquipmentController {
 				}
 		
 				catch (Exception e) {
-					System.out.println("ROSAK!!!");
 					e.printStackTrace();
 				}	
 	
@@ -172,7 +171,6 @@ public class EquipmentController {
 
 			}
 		}
-
 
 		Equipment savedEquipment = equipmentDao.save(equipment);
 
