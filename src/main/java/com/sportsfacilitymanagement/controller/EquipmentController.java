@@ -268,7 +268,7 @@ public class EquipmentController {
 			Student student = this.studentDao.findById(userId).get();
 
 			if (student.getFacilityBan().equals(FacilityBanStatus.YES.value())) {
-				mv.addObject("status", "You are banned from using any facility!!!");
+				mv.addObject("error", "You are banned from using any facility!!!");
 				List<Equipment> equipments = this.equipmentDao.findByStatus(FacilityOrEquipmentStatus.AVAILABLE.value());
 				mv.addObject("equipments", equipments);
 				mv.setViewName("viewavailableequipments");
@@ -281,7 +281,7 @@ public class EquipmentController {
 				.findByParticipantIdAndRoleAndDateContainingIgnoreCase(userId, role, monthYear);
 
 		if (thisMonthsBookings != null && thisMonthsBookings.size() >= 4) {
-			mv.addObject("status", "Can't book the equipment more than 4 times in a month!!!");
+			mv.addObject("error", "Can't book the equipment more than 4 times in a month!!!");
 			List<Equipment> equipments = this.equipmentDao.findByStatus(FacilityOrEquipmentStatus.AVAILABLE.value());
 			mv.addObject("equipments", equipments);
 			mv.setViewName("viewavailableequipments");
@@ -291,7 +291,11 @@ public class EquipmentController {
 		Equipment equipment = this.equipmentDao.findById(equipmentId).get();
 		int balance = equipment.getTotalQuantity() -1;
 		if(balance < 0){
-			mv.addObject("status", "Equipment quantity insufficient.");
+			mv.addObject("error", "Equipment quantity insufficient.");
+			List<Equipment> equipments = this.equipmentDao.findByStatus(FacilityOrEquipmentStatus.AVAILABLE.value());
+			mv.addObject("equipments", equipments);
+			mv.setViewName("viewavailableequipments");
+			return mv;
 		}
 		else{
 			equipment.setTotalQuantity(balance);
@@ -313,7 +317,7 @@ public class EquipmentController {
 		}
 
 		else {
-			mv.addObject("status", "Failed to book equipment.");
+			mv.addObject("error", "Failed to book equipment.");
 		}
 
 		List<Equipment> equipments = this.equipmentDao.findByStatus(FacilityOrEquipmentStatus.AVAILABLE.value());

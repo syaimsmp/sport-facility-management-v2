@@ -53,7 +53,7 @@
 				<div class="table-responsive">
 					<table class="table">
 						<thead class="custom-bg text-color">
-							<tr>
+							<tr class="text-center">
 								<th scope="col">Equipment</th>
 								<th scope="col">Equipment Name</th>
 								<th scope="col">Category</th>

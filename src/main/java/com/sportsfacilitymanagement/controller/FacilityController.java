@@ -264,7 +264,11 @@ public class FacilityController {
 
 			if (student.getFacilityBan().equals(FacilityBanStatus.YES.value())) {
 				mv.addObject("status", "You Banned to use any Facility!!!");
-				mv.setViewName("viewallbookedfacilities");
+					Facility facility = this.facilityDao.findById(facilityId).get();
+					mv.addObject("facility", facility);
+					mv.addObject("role", role);
+					mv.addObject("userId", userId);
+					mv.setViewName("bookfacility");
 				return mv;
 			}
 
@@ -275,7 +279,11 @@ public class FacilityController {
 
 		if (thisMonthsBookings != null && thisMonthsBookings.size() >= 4) {
 			mv.addObject("error", "Can't book the facility more than 4 times in a month!!!");
-			mv.setViewName("index");
+			Facility facility = this.facilityDao.findById(facilityId).get();
+					mv.addObject("facility", facility);
+					mv.addObject("role", role);
+					mv.addObject("userId", userId);
+					mv.setViewName("bookfacility");
 			return mv;
 		}
 
@@ -346,7 +354,12 @@ public class FacilityController {
 			mv.addObject("status", "Failed to add review");
 		}
 
-		mv.setViewName("index");
+
+		Facility facility = this.facilityDao.findById(facilityId).get();
+		mv.addObject("facility", facility);
+		mv.addObject("role", role);
+		mv.addObject("userId", userId);
+		mv.setViewName("viewfacilityreviews");
 
 		return mv;
 	}

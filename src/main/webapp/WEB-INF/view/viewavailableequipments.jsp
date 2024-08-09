@@ -85,7 +85,8 @@
 								<td class="mid-align"><%=equipment.getCategory()%></td>
 								<td class="mid-align"><%=equipment.getTotalQuantity()%></td>
 		
-								<td class="mid-align"><a
+								<td class="mid-align">
+                  <a
 									href="bookequipment?equipmentId=<%=equipment.getId()%>&role=<%=userType%>&userId=<%=userId%>"><button
 											type="button" class="btn btn-primary">Book Equipment</button></a> <a
 									href="addEquipmentReview?equipmentId=<%=equipment.getId()%>&role=<%=userType%>&userId=<%=userId%>"><button

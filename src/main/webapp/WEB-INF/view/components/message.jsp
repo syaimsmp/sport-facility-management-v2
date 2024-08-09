@@ -11,12 +11,12 @@
 <script src="/plugins/toastr/toastr.min.js"></script>
 <script defer>
         
-        if('<%=status %>' != "null")
+        if(`<%=status %>` != "null")
         {
-        toastr.success('<%=status %>')
+        toastr.success(`<%=status %>`)
         }
-        else if('<%=error %>' != "null"){
-        toastr.error('<%=error %>');
+        else if(`<%=error %>` != "null"){
+        toastr.error(`<%=error %>`);
         }
 
 </script>
