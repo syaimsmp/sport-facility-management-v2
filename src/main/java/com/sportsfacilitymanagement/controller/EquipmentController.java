@@ -197,7 +197,6 @@ public class EquipmentController {
 		ModelAndView mv = new ModelAndView();
 
 		List<Equipment> equipments = this.equipmentDao.findByStatus(FacilityOrEquipmentStatus.AVAILABLE.value());
-
 		mv.addObject("equipments", equipments);
 		mv.setViewName("viewavailableequipments");
 
@@ -234,7 +233,9 @@ public class EquipmentController {
 		else {
 			mv.addObject("status", "Failed to update Equipment status.");
 		}
-		mv.setViewName("index");
+		List<Equipment> equipments = this.equipmentDao.findByStatus(FacilityOrEquipmentStatus.AVAILABLE.value());
+		mv.addObject("equipments", equipments);
+		mv.setViewName("viewavailableequipments");
 
 		return mv;
 	}
@@ -267,8 +268,10 @@ public class EquipmentController {
 			Student student = this.studentDao.findById(userId).get();
 
 			if (student.getFacilityBan().equals(FacilityBanStatus.YES.value())) {
-				mv.addObject("status", "You Banned to use any Facility!!!");
-				mv.setViewName("index");
+				mv.addObject("status", "You are banned from using any facility!!!");
+				List<Equipment> equipments = this.equipmentDao.findByStatus(FacilityOrEquipmentStatus.AVAILABLE.value());
+				mv.addObject("equipments", equipments);
+				mv.setViewName("viewavailableequipments");
 				return mv;
 			}
 
@@ -279,8 +282,20 @@ public class EquipmentController {
 
 		if (thisMonthsBookings != null && thisMonthsBookings.size() >= 4) {
 			mv.addObject("status", "Can't book the equipment more than 4 times in a month!!!");
-			mv.setViewName("index");
+			List<Equipment> equipments = this.equipmentDao.findByStatus(FacilityOrEquipmentStatus.AVAILABLE.value());
+			mv.addObject("equipments", equipments);
+			mv.setViewName("viewavailableequipments");
 			return mv;
+		}
+
+		Equipment equipment = this.equipmentDao.findById(equipmentId).get();
+		int balance = equipment.getTotalQuantity() -1;
+		if(balance < 0){
+			mv.addObject("status", "Equipment quantity insufficient.");
+		}
+		else{
+			equipment.setTotalQuantity(balance);
+			equipmentDao.save(equipment);	
 		}
 
 		BookedEquipment bookedEquipment = new BookedEquipment();
@@ -301,7 +316,9 @@ public class EquipmentController {
 			mv.addObject("status", "Failed to book equipment.");
 		}
 
-		mv.setViewName("index");
+		List<Equipment> equipments = this.equipmentDao.findByStatus(FacilityOrEquipmentStatus.AVAILABLE.value());
+		mv.addObject("equipments", equipments);
+		mv.setViewName("viewavailableequipments");
 
 		return mv;
 	}
@@ -343,7 +360,9 @@ public class EquipmentController {
 			mv.addObject("status", "Failed to add review");
 		}
 
-		mv.setViewName("index");
+		List<Equipment> equipments = this.equipmentDao.findByStatus(FacilityOrEquipmentStatus.AVAILABLE.value());
+		mv.addObject("equipments", equipments);
+		mv.setViewName("viewavailableequipments");
 
 		return mv;
 	}

@@ -337,6 +337,8 @@ public class FacilityController {
 		ReviewFacility savedReview = this.reviewFacilityDao.save(reviewFacility);
 
 		if (savedReview != null) {
+			List<Facility> facilities = this.facilityDao.findByStatus(FacilityOrEquipmentStatus.AVAILABLE.value());
+			mv.addObject("facilities", facilities);
 			mv.addObject("status", "Review added successful!!!");
 		}
 

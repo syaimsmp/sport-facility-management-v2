@@ -62,7 +62,7 @@
 					%>
 					<table class="table table-striped projects">
 					<thead class="custom-bg text-color">
-						<tr>
+						<tr class="text-center">
 							<th scope="col">Facility</th>
 							<th scope="col">Facility Name</th>
 							<th scope="col">Location</th>
