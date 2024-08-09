@@ -32,7 +32,7 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <div class="container-fluid">
+      <div class="container">
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1>Add Facility Review</h1>
@@ -44,61 +44,49 @@
             </ol>
           </div>
         </div>
-      </div><!-- /.container-fluid -->
+      </div><!-- /.container -->
     </section>
 
     <!-- Main content -->
     <section class="content">
 
-      <!-- Default box -->
-      <div class="card card-solid">
-        <div class="card-body pb-0">
-			<div class="row">
-				<div class="col-md-12">
-					<%@ include file="./components/message.jsp"%>
-					<div class="card-body px-5">
-						<h3 class="text-center my-3">Add Facility Review</h3>
-						<form action="/addfacilityreview">
-							<input type="hidden" name="facilityId"
-								value="<%=facility.getId()%>"> <input type="hidden"
-								name="userId" value="<%=userId%>"> <input type="hidden"
-								name="role" value="<%=userType%>">
-							<div class="form-group">
-								<label>Facility Name</label> <input type="text"
-									class="form-control" placeholder="Enter facility here"
-									value="<%=facility.getName()%>" required readonly>
-							</div>
+      <div class="container mt-2">
+        <h3 class="text-center my-3">Add Facility Review</h3>
+        <form action="/addfacilityreview">
+          <input type="hidden" name="facilityId"
+            value="<%=facility.getId()%>"> <input type="hidden"
+            name="userId" value="<%=userId%>"> <input type="hidden"
+            name="role" value="<%=userType%>">
+          <div class="form-group">
+            <label>Facility Name</label> <input type="text"
+              class="form-control" placeholder="Enter facility here"
+              value="<%=facility.getName()%>" required readonly>
+          </div>
 
-							<div class="form-group">
-								<label>Facility Description</label>
-								<textarea style="height: 150px" class="form-control"
-									placeholder="Enter Facility Description here" required readonly><%=facility.getDescription()%>
-									</textarea>
-							</div>
+          <div class="form-group">
+            <label>Facility Description</label>
+            <textarea style="height: 150px" class="form-control"
+              placeholder="Enter Facility Description here" required readonly><%=facility.getDescription()%>
+              </textarea>
+          </div>
 
-							<div class="form-group">
-								<label>Location</label> <input type="text" class="form-control"
-									placeholder="Enter location here"
-									value="<%=facility.getLocation()%>" required readonly>
-							</div>
+          <div class="form-group">
+            <label>Location</label> <input type="text" class="form-control"
+              placeholder="Enter location here"
+              value="<%=facility.getLocation()%>" required readonly>
+          </div>
 
-							<div class="form-group">
-								<label>Review</label> <input type="text" class="form-control"
-									placeholder="write review..." name="review" required>
-							</div>
+          <div class="form-group">
+            <label>Review</label> <input type="text" class="form-control"
+              placeholder="write review..." name="review" required>
+          </div>
 
-							<div class="container text-center">
-								<button class="btn btn-primary btn-block">Add Review</button>
-								<a href="/viewAvailableFacility" class="mt-1 btn-block btn btn-danger text-center">Cancel</a>
-							</div>
-						</form>
-					</div>
-				</>
-			</div>
-        </div>
-        <!-- /.card-body -->
+          <div class="container text-center">
+            <button class="btn btn-primary btn-block">Add Review</button>
+            <a href="/viewAvailableFacility" class="mt-1 btn-block btn btn-danger text-center">Cancel</a>
+          </div>
+        </form>
       </div>
-      <!-- /.card -->
 
     </section>
     <!-- /.content -->

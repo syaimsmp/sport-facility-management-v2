@@ -27,7 +27,7 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <div class="container-fluid">
+      <div class="container">
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1>Add Facility</h1>
@@ -40,7 +40,7 @@
             </ol>
           </div>
         </div>
-      </div><!-- /.container-fluid -->
+      </div><!-- /.container -->
     </section>
 
     <!-- Main content -->
@@ -49,49 +49,40 @@
 		Facility facility = (Facility) request.getAttribute("facility");
 		%>
 
-      <!-- Default box -->
-      <div class="card card-solid">
-        <div class="card-body pb-0">
-          <div class="row">
-            <div class="col-12 ">
-				<%@ include file="./components/message.jsp"%>
-				<h3 class="text-center my-3">Add Facility</h3>
-				<form action="addFacility" method="post"
-					enctype="multipart/form-data">
+    <div class="container mt-2">
+      <%@ include file="./components/message.jsp"%>
+      <h3 class="text-center my-3">Add Facility</h3>
+      <form action="addFacility" method="post"
+        enctype="multipart/form-data">
 
-					<div class="form-group">
-						<label>Facility Name</label> <input type="text"
-							class="form-control" name="name"
-							placeholder="Enter facility here" required>
-					</div>
-
-					<div class="form-group">
-						<label>Facility Description</label>
-						<textarea style="height: 150px" class="form-control"
-							name="description"
-							placeholder="Enter Facility Description here" required></textarea>
-					</div>
-
-					<div class="form-group">
-						<label>Location</label> <input type="text" class="form-control"
-							name="location" placeholder="Enter location here" required>
-					</div>
-
-
-					<div class="form-group">
-						<label>Select Facility Pic</label><br> <input type="file"
-							class="form-control" name="image" required>
-					</div>
-
-					<button class="btn btn-primary btn-block">Add Facility</button>
-					<a href="/viewFacilities" class="btn btn-danger mt-1 btn-block">Cancel</a>
-				</form>
-          </div>
+        <div class="form-group">
+          <label>Facility Name</label> <input type="text"
+            class="form-control" name="name"
+            placeholder="Enter facility here" required>
         </div>
-        <!-- /.card-body -->
-      </div>
-      <!-- /.card -->
 
+        <div class="form-group">
+          <label>Facility Description</label>
+          <textarea style="height: 150px" class="form-control"
+            name="description"
+            placeholder="Enter Facility Description here" required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Location</label> <input type="text" class="form-control"
+            name="location" placeholder="Enter location here" required>
+        </div>
+
+
+        <div class="form-group">
+          <label>Select Facility Pic</label><br> <input type="file"
+            class="form-control" name="image" required>
+        </div>
+
+        <button class="btn btn-primary btn-block">Add Facility</button>
+        <a href="/viewFacilities" class="btn btn-danger mt-1 btn-block">Cancel</a>
+      </form>
+    </div>
     </section>
     <!-- /.content -->
   </div>

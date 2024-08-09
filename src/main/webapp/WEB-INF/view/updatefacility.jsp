@@ -29,7 +29,7 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <div class="container-fluid">
+      <div class="container">
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1>Update Facility</h1>
@@ -42,7 +42,7 @@
             </ol>
           </div>
         </div>
-      </div><!-- /.container-fluid -->
+      </div><!-- /.container -->
     </section>
 
     <!-- Main content -->
@@ -50,10 +50,11 @@
 		<%
 		Facility facility = (Facility) request.getAttribute("facility");
 		%>
-
-      <!-- Default box -->
+    
+      <div class="container mt-2">
+              <!-- Default box -->
       <div class="card card-solid">
-        <div class="card-body pb-0">
+        <div class="card-body">
           <div class="row">
             <div class="col-12 ">
 				<%@ include file="./components/message.jsp"%>
@@ -106,6 +107,7 @@
         <!-- /.card-body -->
       </div>
       <!-- /.card -->
+      </div>
 
     </section>
     <!-- /.content -->

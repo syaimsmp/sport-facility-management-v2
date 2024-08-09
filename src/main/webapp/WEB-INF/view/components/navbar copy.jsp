@@ -45,7 +45,7 @@ ReviewEventParticipantDao reviewEventParticipantDao = context.getBean(ReviewEven
 
 <nav class="navbar navbar-expand-lg navbar-dark custom-bg">
 
-	<div class="container-fluid">
+	<div class="container">
 		<img src="resources/images/mainlogo.png" width="40"
 			class="d-inline-block align-top" alt=""> <a
 			class="navbar-brand" href="/"><h3 class="text-color">

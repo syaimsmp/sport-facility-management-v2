@@ -26,7 +26,7 @@
 	  <div class="content-wrapper">
 		<!-- Content Header (Page header) -->
 		<section class="content-header">
-		  <div class="container-fluid">
+		  <div class="container">
 			<div class="row mb-2">
 			  <div class="col-sm-6">
 				<h1>Available Facilities</h1>
@@ -38,73 +38,75 @@
 				</ol>
 			  </div>
 			</div>
-		  </div><!-- /.container-fluid -->
+		  </div><!-- /.container -->
 		</section>
 	
 		<!-- Main content -->
 		<section class="content">
+
+			<div class="container mt-2">
+				<!-- Default box -->
+				<div class="card">
+				<div class="card-header">
+					<h3 class="card-title">Available Facilities</h3>
+		
+					<div class="card-tools">
+					<button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+						<i class="fas fa-minus"></i>
+					</button>
+					</div>
+				</div>
+				<div class="card-body">
+					<%
+					List<BookedFacility> bookings = (List<BookedFacility>) request.getAttribute("bookedFacilities");
+					%>
+					<table class="table table-striped projects">
+					<thead class="custom-bg text-color">
+						<tr class="text-center">
+							<th scope="col">Facility Image</th>
+							<th scope="col">Facility Name</th>
+							<th scope="col">Facility Description</th>
+							<th scope="col">Location</th>
+							<th scope="col">Action</th>
+						</tr>
+					</thead>
+					<%
+					List<Facility> allFacilities = new ArrayList<>();
 	
-		  <!-- Default box -->
-		  <div class="card">
-			<div class="card-header">
-			  <h3 class="card-title">Available Facilities</h3>
+					allFacilities = (List<Facility>) request.getAttribute("facilities");
 	
-			  <div class="card-tools">
-				<button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-				  <i class="fas fa-minus"></i>
-				</button>
-			  </div>
+					if (allFacilities != null) {
+						for (Facility facility : allFacilities) {
+					%>
+					<tbody>
+						<tr class="text-center">
+							<td class="mid-align"><img
+								style="max-height: 100px; max-width: 70px; width: auto;"
+								class="img-fluid mx-auto d-block"
+								src="resources/sportsimage/<%=facility.getImagePath()%>"
+								alt="facility_pic"></td>
+							<td class="mid-align"><%=facility.getName()%></td>
+							<td class="mid-align"><%=facility.getDescription()%></td>
+							<td class="mid-align"><%=facility.getLocation()%></td>
+	
+							<td class="mid-align"><a
+								href="bookfacility?facilityId=<%=facility.getId()%>&role=<%=userType%>&userId=<%=userId%>"><button
+										type="button" class="btn btn-primary">Book Facility</button></a> <a
+								href="addFacilityReview?facilityId=<%=facility.getId()%>&role=<%=userType%>&userId=<%=userId%>"><button
+										type="button" class="btn btn-primary">Add Review</button></a></td>
+						</tr>
+					</tbody>
+					<%
+					}
+					}
+					%>
+					</table>
+				</div>
+				<!-- /.card-body -->
+				</div>
+				<!-- /.card -->				
 			</div>
-			<div class="card-body p-0">
-				<%
-				List<BookedFacility> bookings = (List<BookedFacility>) request.getAttribute("bookedFacilities");
-				%>
-			  <table class="table table-striped projects">
-				<thead class="custom-bg text-color">
-					<tr class="text-center">
-						<th scope="col">Facility Image</th>
-						<th scope="col">Facility Name</th>
-						<th scope="col">Facility Description</th>
-						<th scope="col">Location</th>
-						<th scope="col">Action</th>
-					</tr>
-				</thead>
-				<%
-				List<Facility> allFacilities = new ArrayList<>();
 
-				allFacilities = (List<Facility>) request.getAttribute("facilities");
-
-				if (allFacilities != null) {
-					for (Facility facility : allFacilities) {
-				%>
-				<tbody>
-					<tr class="text-center">
-						<td class="mid-align"><img
-							style="max-height: 100px; max-width: 70px; width: auto;"
-							class="img-fluid mx-auto d-block"
-							src="resources/sportsimage/<%=facility.getImagePath()%>"
-							alt="facility_pic"></td>
-						<td class="mid-align"><%=facility.getName()%></td>
-						<td class="mid-align"><%=facility.getDescription()%></td>
-						<td class="mid-align"><%=facility.getLocation()%></td>
-
-						<td class="mid-align"><a
-							href="bookfacility?facilityId=<%=facility.getId()%>&role=<%=userType%>&userId=<%=userId%>"><button
-									type="button" class="btn btn-primary">Book Facility</button></a> <a
-							href="addFacilityReview?facilityId=<%=facility.getId()%>&role=<%=userType%>&userId=<%=userId%>"><button
-									type="button" class="btn btn-primary">Add Review</button></a></td>
-					</tr>
-				</tbody>
-				<%
-				}
-				}
-				%>
-			  </table>
-			</div>
-			<!-- /.card-body -->
-		  </div>
-		  <!-- /.card -->
-	
 		</section>
 		<!-- /.content -->
 	  </div>

@@ -25,7 +25,7 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <div class="container-fluid">
+      <div class="container">
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1>Contacts</h1>
@@ -37,7 +37,7 @@
             </ol>
           </div>
         </div>
-      </div><!-- /.container-fluid -->
+      </div><!-- /.container -->
     </section>
 
     <!-- Main content -->
@@ -45,7 +45,7 @@
 
       <!-- Default box -->
       <div class="card card-solid">
-        <div class="card-body pb-0">
+        <div class="card-body">
           <div class="row">
             <%@ include file="./components/about_us.jsp" %>
           </div>

@@ -31,7 +31,7 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <div class="container-fluid">
+      <div class="container">
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1>Add Event</h1>
@@ -43,95 +43,97 @@
             </ol>
           </div>
         </div>
-      </div><!-- /.container-fluid -->
+      </div><!-- /.container -->
     </section>
 
     <!-- Main content -->
     <section class="content">
 
-      <!-- Default box -->
-      <div class="card card-solid">
-        <div class="card-body pb-0">
-          <div class="row">
-            <div class="col-12 d-flex align-items-stretch flex-column">
-				<%@ include file="./components/message.jsp"%>
-				<h3 class="text-center my-3">Add Event</h3>
-				<form action="/addEvent" method="post">
-					<input type="hidden" name="hostId" value="<%=userId%>"> <input
-						type="hidden" name="role" value="<%=userType%>">
-
-					<div class="form-group">
-						<label>Event Name</label> <input type="text"
-							class="form-control" name="name"
-							placeholder="Enter event name here" required>
+		<div class="container mt-2">
+			      <!-- Default box -->
+				  <div class="card card-solid">
+					<div class="card-body">
+					  <div class="row">
+						<div class="col-12 d-flex align-items-stretch flex-column">
+							<%@ include file="./components/message.jsp"%>
+							<h3 class="text-center my-3">Add Event</h3>
+							<form action="/addEvent" method="post">
+								<input type="hidden" name="hostId" value="<%=userId%>"> <input
+									type="hidden" name="role" value="<%=userType%>">
+			
+								<div class="form-group">
+									<label>Event Name</label> <input type="text"
+										class="form-control" name="name"
+										placeholder="Enter event name here" required>
+								</div>
+			
+								<div class="form-group">
+									<label>Select Facility</label> <select name="facilityId"
+										class="form-control" required>
+										<option value="">Facility</option>
+			
+										<%
+										for (Facility facility : facilityDao.findByStatus(FacilityOrEquipmentStatus.AVAILABLE.value())) {
+										%>
+										<option value="<%=facility.getId()%>"><%=facility.getName()%></option>
+										<%
+										}
+										%>
+			
+									</select>
+								</div>
+			
+								<div class="form-group">
+									<label>Is Event Open for Public?</label> <select
+										name=openToPublic class="form-control" required>
+										<option value="">Open for Public</option>
+			
+										<%
+										for (OpenForPublicStatus s : OpenForPublicStatus.values()) {
+										%>
+										<option value="<%=s.value()%>"><%=s.value()%></option>
+										<%
+										}
+										%>
+			
+									</select>
+								</div>
+			
+			
+								<div class="form-group">
+									<label>Venue</label> <input type="text" class="form-control"
+										name="venue" placeholder="Enter venue here" required>
+								</div>
+			
+								<div class="form-group">
+									<label>Event Time</label> <input type="datetime-local"
+										class="form-control" name="dateTime" required>
+								</div>
+			
+								<div class="form-group">
+									<label>Min Participant</label> <input type="number"
+										class="form-control" name="minParticipant"
+										placeholder="Enter min participant here" required>
+								</div>
+			
+								<div class="form-group">
+									<label>Max Participant</label> <input type="number"
+										class="form-control" name="maxParticipant"
+										placeholder="Enter max participant here" required>
+								</div>
+			
+									<button class="btn btn-primary btn-block">
+										<b>Add Event</b>
+									</button>
+							</form>
+						</div>
+					  </div>
 					</div>
-
-					<div class="form-group">
-						<label>Select Facility</label> <select name="facilityId"
-							class="form-control" required>
-							<option value="">Facility</option>
-
-							<%
-							for (Facility facility : facilityDao.findByStatus(FacilityOrEquipmentStatus.AVAILABLE.value())) {
-							%>
-							<option value="<%=facility.getId()%>"><%=facility.getName()%></option>
-							<%
-							}
-							%>
-
-						</select>
-					</div>
-
-					<div class="form-group">
-						<label>Is Event Open for Public?</label> <select
-							name=openToPublic class="form-control" required>
-							<option value="">Open for Public</option>
-
-							<%
-							for (OpenForPublicStatus s : OpenForPublicStatus.values()) {
-							%>
-							<option value="<%=s.value()%>"><%=s.value()%></option>
-							<%
-							}
-							%>
-
-						</select>
-					</div>
-
-
-					<div class="form-group">
-						<label>Venue</label> <input type="text" class="form-control"
-							name="venue" placeholder="Enter venue here" required>
-					</div>
-
-					<div class="form-group">
-						<label>Event Time</label> <input type="datetime-local"
-							class="form-control" name="dateTime" required>
-					</div>
-
-					<div class="form-group">
-						<label>Min Participant</label> <input type="number"
-							class="form-control" name="minParticipant"
-							placeholder="Enter min participant here" required>
-					</div>
-
-					<div class="form-group">
-						<label>Max Participant</label> <input type="number"
-							class="form-control" name="maxParticipant"
-							placeholder="Enter max participant here" required>
-					</div>
-
-						<button class="btn btn-primary btn-block">
-							<b>Add Event</b>
-						</button>
-				</form>
-            </div>
-          </div>
-        </div>
-        <!-- /.card-body -->
-      </div>
-      <!-- /.card -->
-
+					<!-- /.card-body -->
+				  </div>
+				  <!-- /.card -->
+			
+		</div>
     </section>
     <!-- /.content -->
   </div>
