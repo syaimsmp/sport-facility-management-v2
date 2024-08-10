@@ -76,9 +76,16 @@
 					</div>
 		
 					<div class="form-group">
-						<label>Select Date</label> <input type="date"
+						<label>Select Date</label> <input type="datetime-local"
 							class="form-control" placeholder="select book date..."
 							name="date" required>
+					</div>
+
+          <div class="form-group">
+						<label>Select End Date</label> 
+            <input type="datetime-local"
+							class="form-control" placeholder="select end date..."
+							name="end_date" required />
 					</div>
 		
 					<div class="container text-center">

@@ -8,9 +8,9 @@
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="/dist/css/adminlte.min.css">
 </head>
 <body class="hold-transition sidebar-collapse">
 <!-- Site wrapper -->
@@ -58,7 +58,7 @@
 								<th scope="col">Equipment Name</th>
 								<th scope="col">Category</th>
 								<th scope="col">Book Time</th>
-								<th scope="col">Added Time</th>
+								<th scope="col">Action</th>
 							</tr>
 						</thead>
 						<%
@@ -86,10 +86,8 @@
 									alt="facility_pic"></td>
 								<td class="mid-align"><%=equipment.getName()%></td>
 								<td class="mid-align"><%=equipment.getCategory()%></td>
-								<td class="mid-align"><%=booking.getDate()%></td>
-								<td class="mid-align"><%=Helper.millisToDateTime(booking.getBookingTime())%></td>
-		
-		
+								<td class="mid-align"><%=booking.getDate()%> <br> <%=Helper.millisToDateTime(booking.getBookingTime())%> </td>
+								<td class="mid-align"> <a href="/returnEquipment/<%=booking.getId()%>" class="btn btn-warning">Return</a> </td>
 							</tr>
 						</tbody>
 						<%
@@ -123,12 +121,12 @@
 <!-- ./wrapper -->
 
 <!-- jQuery -->
-<script src="plugins/jquery/jquery.min.js"></script>
+<script src="/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
-<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
-<script src="dist/js/adminlte.min.js"></script>
+<script src="/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="dist/js/demo.js"></script>
+<script src="/dist/js/demo.js"></script>
 </body>
 </html>
