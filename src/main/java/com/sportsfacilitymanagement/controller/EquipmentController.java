@@ -17,7 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -350,6 +352,28 @@ public class EquipmentController {
 		else {
 			mv.addObject("error", "Failed to book equipment.");
 		}
+
+		List<Equipment> equipments = this.equipmentDao.findByStatus(FacilityOrEquipmentStatus.AVAILABLE.value());
+		mv.addObject("equipments", equipments);
+		mv.setViewName("viewavailableequipments");
+
+		return mv;
+	}
+
+	@GetMapping("/returnEquipment/{bookingEquipmentId}")
+	public ModelAndView returnFacility(@PathVariable int bookingEquipmentId) {
+		ModelAndView mv = new ModelAndView();
+
+		BookedEquipment bookedEquipment = bookedEquipmentDao.findById(bookingEquipmentId).get();
+
+		bookedEquipmentDao.deleteById(bookingEquipmentId);
+
+		Equipment equipment = equipmentDao.findById(bookedEquipment.getEquipmentId()).get();
+		equipment.setTotalQuantity(equipment.getTotalQuantity() + 1);
+
+		equipmentDao.save(equipment);
+
+		mv.addObject("status", "Equipment Returned Successfully!!!");
 
 		List<Equipment> equipments = this.equipmentDao.findByStatus(FacilityOrEquipmentStatus.AVAILABLE.value());
 		mv.addObject("equipments", equipments);
