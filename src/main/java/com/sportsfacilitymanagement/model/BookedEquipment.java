@@ -27,6 +27,12 @@ public class BookedEquipment {
 	@Column(name = "booking_time")
 	private String bookingTime;
 
+	@Column(name = "end_date")
+	private String endDate;
+
+	@Column(name = "end_time")
+	private String endTime;
+
 	public int getId() {
 		return id;
 	}
@@ -59,6 +65,14 @@ public class BookedEquipment {
 		this.date = date;
 	}
 
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+
 	public String getRole() {
 		return role;
 	}
@@ -73,6 +87,14 @@ public class BookedEquipment {
 
 	public void setBookingTime(String bookingTime) {
 		this.bookingTime = bookingTime;
+	}
+	
+	public String getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
 	}
 
 }

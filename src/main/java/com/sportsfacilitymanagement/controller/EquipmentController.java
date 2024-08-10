@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -33,6 +34,7 @@ import com.sportsfacilitymanagement.model.Facility;
 import com.sportsfacilitymanagement.model.ReviewEquipment;
 import com.sportsfacilitymanagement.model.ReviewFacility;
 import com.sportsfacilitymanagement.model.Student;
+import com.sportsfacilitymanagement.services.BookedEquipmentService;
 import com.sportsfacilitymanagement.utility.Helper;
 import com.sportsfacilitymanagement.utility.Constants.FacilityBanStatus;
 import com.sportsfacilitymanagement.utility.Constants.FacilityOrEquipmentStatus;
@@ -45,6 +47,9 @@ public class EquipmentController {
 
 	@Autowired
 	private StaffDao staffDao;
+
+	@Autowired
+	private BookedEquipmentService bookedEquipmentService;
 
 	@Autowired
 	private FacilityDao facilityDao;
@@ -267,10 +272,13 @@ public class EquipmentController {
 	@GetMapping("/bookEquipment")
 	public ModelAndView bookFacility(@RequestParam("equipmentId") Integer equipmentId,
 			@RequestParam("userId") Integer userId, @RequestParam("role") String role,
-			@RequestParam("date") String date) {
+			@RequestParam("date") String date, @RequestParam("end_date") String endDate) {
 		ModelAndView mv = new ModelAndView();
 
-		String monthYear = Helper.getCurrentYearMonth(date);
+		// Define a formatter for the desired output format
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+		String monthYear = Helper.getCurrentYearMonth(LocalDateTime.parse(date).format(formatter));
 
 		Student sudent = null;
 
@@ -299,6 +307,15 @@ public class EquipmentController {
 			return mv;
 		}
 
+		if(bookedEquipmentService.isDateRangeOverlapping(date, endDate) ){
+			
+			mv.addObject("error", "Booking Date Range Overlap with another person");
+			List<Equipment> equipments = this.equipmentDao.findByStatus(FacilityOrEquipmentStatus.AVAILABLE.value());
+			mv.addObject("equipments", equipments);
+			mv.setViewName("viewavailableequipments");
+			return mv;
+		}
+
 		Equipment equipment = this.equipmentDao.findById(equipmentId).get();
 		int balance = equipment.getTotalQuantity() -1;
 		if(balance < 0){
@@ -316,10 +333,13 @@ public class EquipmentController {
 		BookedEquipment bookedEquipment = new BookedEquipment();
 		bookedEquipment.setRole(role);
 		bookedEquipment.setParticipantId(userId);
-		bookedEquipment.setDate(date);
+		bookedEquipment.setDate(LocalDateTime.parse(date).format(formatter));
+		bookedEquipment.setEndDate(LocalDateTime.parse(endDate).format(formatter));
 		bookedEquipment.setEquipmentId(equipmentId);
 		bookedEquipment.setBookingTime(
-				String.valueOf(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()));
+				String.valueOf(LocalDateTime.parse(date).atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()));
+		bookedEquipment.setEndTime(
+				String.valueOf(LocalDateTime.parse(endDate).atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()));
 
 		BookedEquipment savedBooking = bookedEquipmentDao.save(bookedEquipment);
 
