@@ -64,7 +64,7 @@
 								<th scope="col">User Name</th>
 								<th scope="col">Role</th>
 								<th scope="col">Book Time</th>
-								<th scope="col">Added Time</th>
+								<th scope="col">End Time</th>
 							</tr>
 						</thead>
 		
@@ -94,9 +94,17 @@
 								<td class="mid-align"><%=stdnt != null ? stdnt.getFirstname() + " " + stdnt.getLastname()
 				: stf.getFirstname() + " " + stf.getLastname()%></td>
 								<td class="mid-align"><%=booking.getRole()%></td>
-								<td class="mid-align"><%=booking.getDate()%></td>
 								<td class="mid-align"><%=Helper.millisToDateTime(booking.getBookingTime())%></td>
-		
+                <td class="mid-align">
+                  <%=booking.getEndTime() != null ? Helper.millisToDateTime(booking.getEndTime()) : ""%> 
+                  <%if(booking.getEndTime() != null && Helper.isBookingExceedEndTime(booking.getEndTime())){
+                  %>
+                    <br>
+                  <span class='text-danger text-bold'>User are late in returning</span>
+                  <%
+                  }
+                  %>
+                </td>
 		
 							</tr>
 						</tbody>

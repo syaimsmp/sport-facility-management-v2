@@ -58,6 +58,7 @@
 								<th scope="col">Equipment Name</th>
 								<th scope="col">Category</th>
 								<th scope="col">Book Time</th>
+								<th scope="col">End Time</th>
 								<th scope="col">Action</th>
 							</tr>
 						</thead>
@@ -86,7 +87,17 @@
 									alt="facility_pic"></td>
 								<td class="mid-align"><%=equipment.getName()%></td>
 								<td class="mid-align"><%=equipment.getCategory()%></td>
-								<td class="mid-align"><%=booking.getDate()%> <br> <%=Helper.millisToDateTime(booking.getBookingTime())%> </td>
+								<td class="mid-align"><%=Helper.millisToDateTime(booking.getBookingTime())%> </td>
+								<td class="mid-align">
+                  <%=Helper.millisToDateTime(booking.getEndTime())%> 
+                  <%if(Helper.isBookingExceedEndTime(booking.getEndTime())){
+                  %>
+                    <br>
+                  <span class='text-danger text-bold'>User are late in returning</span>
+                  <%
+                  }
+                  %>
+                </td>
 								<td class="mid-align"> <a href="/returnEquipment/<%=booking.getId()%>" class="btn btn-warning">Return</a> </td>
 							</tr>
 						</tbody>

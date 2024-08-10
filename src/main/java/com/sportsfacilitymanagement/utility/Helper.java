@@ -1,10 +1,12 @@
 package com.sportsfacilitymanagement.utility;
 
+import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Helper {
@@ -62,6 +64,38 @@ public class Helper {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
 		LocalDateTime dateTime = LocalDateTime.parse(dateTimeString, formatter);
 		return dateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
+	}
+
+	public static boolean isBookingExceedEndTime(String givenDateTimeMillis){
+
+		  // Current datetime
+		  LocalDateTime now = LocalDateTime.now();
+
+		    // Convert the String to a long (milliseconds)
+			long timestampMillis = Long.parseLong(givenDateTimeMillis);
+
+			// Convert the milliseconds to LocalDateTime
+			LocalDateTime dateTime = Instant.ofEpochMilli(timestampMillis)
+											.atZone(ZoneOffset.UTC)
+											.toLocalDateTime();
+
+		   // Compare the given datetime with the current datetime
+		   return dateTime.isBefore(now);
+	}
+
+	public static String getCurrentDateTime(){
+        // Get the current instant in time
+        Instant now = Instant.now();
+
+        // Convert to UTC ZonedDateTime
+        ZonedDateTime utcNow = now.atZone(ZoneId.of("UTC"));
+
+        // Format the output
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedUtcNow = utcNow.format(formatter);
+
+        // Print the current UTC time
+        return "Current UTC Time: " + formattedUtcNow;
 	}
 	
 
